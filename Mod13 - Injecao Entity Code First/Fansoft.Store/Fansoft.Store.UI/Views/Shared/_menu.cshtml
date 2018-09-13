@@ -1,0 +1,62 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">FanSoft Store</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","Home")">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","Produtos")">Produtos</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","Clientes")">Clientes</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","Pedidos")">Pedidos</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","TesteCache")">Cache</a>
+            </li>
+
+            <li class="nav-item">
+                @Html.ActionLink("Sobre", "About", "Home", null, new { @class = "nav-link" })
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                var user = 
+                    JsonConvert.DeserializeObject<UsuarioVM>(User.Identity.Name);
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Olá @user.Nome
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Meu Perfil</a>
+                        <a class="dropdown-item" href="#">Trocar senha</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="@Url.Action("LogOff","Conta")">LogOff</a>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Login","Conta")">LogIn</a>
+                </li>
+            }
+
+
+        </ul>
+
+
+    </div>
+</nav>

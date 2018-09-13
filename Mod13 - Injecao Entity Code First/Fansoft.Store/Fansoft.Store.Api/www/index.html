@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo WebAPI</title>
+</head>
+<body>
+
+    <h2>Consumindo por jQuery</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        var _url = 'http://localhost:50545/api/v1/produtos';
+        $.ajax({
+            url: _url,
+            success: function (resp) {
+                //console.log(resp);
+                $.each(resp, function (i, v) {
+                    var tr = $('<tr />');
+                    $('<td>' + v.Id + '</td>').appendTo(tr);
+                    $('<td>' + v.Nome + '</td>').appendTo(tr);
+                    tr.appendTo($('#tbody'));
+                });
+            },
+            error: function (resp) {
+                console.log(resp);
+            }
+        });
+    </script>
+
+
+
+</body>
+</html>

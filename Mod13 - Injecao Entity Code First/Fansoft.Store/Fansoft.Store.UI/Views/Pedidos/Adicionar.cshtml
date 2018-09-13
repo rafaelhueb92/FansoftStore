@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Novo Pedido";
+}
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<h2>@ViewBag.Title</h2>
+
+<form method="post">
+
+    <div class="form-group">
+        <label>Cliente</label>
+        <input id="cliente" type="text" autofocus class="form-control" />
+    </div>
+
+    <button class="btn btn-secondary">Salvar</button>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Voltar</a>
+
+</form>
+
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        var _url = '@Url.Action("GetClientesByName")';
+        $('#cliente').autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                $.ajax({
+                    url: _url,
+                    type: 'get',
+                    dataType: 'json',
+                    data: { nome: request.term },
+                    success: function (data) {
+                        response(
+                            $.map(data, function (item) {
+                                return { label: item.Nome, id: item.Id };
+                            })
+                        )
+                    }
+                });
+            },
+            select: function () { }
+        });
+    </script>
+}

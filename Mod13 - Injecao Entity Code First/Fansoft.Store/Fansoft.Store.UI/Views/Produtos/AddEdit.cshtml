@@ -1,0 +1,66 @@
+﻿@model Produto
+
+@{
+    ViewBag.Title = (Model.Id == 0 ? "Adicionar " : "Editar ") + " Produto";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<form method="post">
+
+    <p>
+        @Html.ValidationSummary(true, null, new { @class = "is-invalid" })
+    </p>
+
+    <div class="form-group">
+        @*<label>Nome</label>*@
+        @Html.LabelFor(m => m.Nome)
+        @*<input autofocus class="form-control" name="nome"
+            value="@Model.Nome" type="text" />*@
+        @Html.TextBoxFor(x => x.Nome, new { autofocus = "", @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Nome, null)
+    </div>
+
+    <div class="form-group">
+        <label>Tipo</label>
+        @*<select class="form-control" name="tipoprodutoid">
+                <option value="">Selecione ...</option>
+
+                @foreach (var tipo in ViewBag.TipoProdutos)
+                {
+                    <option @(tipo.Id == Model.TipoProdutoId ? "selected" : "") value="@tipo.Id">@tipo.Nome</option>
+                }
+            </select>*@
+        @Html.DropDownListFor(m => m.TipoProdutoId,
+                               new SelectList(ViewBag.TipoProdutos, "Id", "Nome"),
+                               "Selecione ...", new { @class = "form-control" }
+                   )
+        @Html.ValidationMessageFor(x => x.TipoProdutoId, null)
+    </div>
+
+    <div class="form-group">
+        <label>Valor</label>
+        @Html.TextBoxFor(x => x.Valor, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Valor, null)
+    </div>
+
+
+    <div class="form-group">
+        <label>Descrição</label>
+        @Html.TextAreaFor(x => x.Descricao, new { @class = "form-control", rows="5" })
+        @Html.ValidationMessageFor(x => x.Descricao, null)
+    </div>
+
+    @*<input type="submit" value="Salvar" />
+        <input type="button" value="Salvar" />*@
+    <button class="btn btn-secondary">Salvar</button>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Voltar</a>
+</form>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap.validate.js"></script>
+    <script src="~/Scripts/methods_pt-br.js"></script>
+}

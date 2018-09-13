@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Pedido>
+@{
+    ViewBag.Title = "Listagem de Pedidos";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<a class="btn btn-outline-success" href="@Url.Action("Adicionar")">Novo Pedido</a>
+
+<p>
+    Quantidade de pedidos: @Model.Count()
+</p>
+
